@@ -1,0 +1,91 @@
+# Google Cloud Platform Watchdog (unofficial) config 
+# General settings. Can't be omitted.
+general:
+  report-title:   Daily Security Report
+  watchdog-email: watchdog@my.company.com
+  receiver-email: 
+    - email:      me@my.company.com
+    - email:      someone.else@my.company.com
+
+  notify-projects: 
+    poject-ID:                   # whitelist project via project ID
+    name:                        # whitelist project via name
+  ignore-projects: 
+    poject-ID:
+      - string:  old-project-1 
+    name:
+  notify-zones:   
+    name: 
+  ignore-zones:  
+    name:
+      - string:  us              # whitelist zones with 'us' in their name   
+
+
+compute:
+  print: True                    # Show the compute instances in the report
+
+  notify-rules:                  # whitelist instances by machine-time, name or status
+    machine-type:                
+    name:
+    status: RUNNING              # show only running instances
+
+  alert-rules:
+    machine-type:                # highlight instances by machine-time, name or status
+      - string: standard         # highlight all standard machines
+      - string: large            # highlight all large machines
+      - string: xl               # highlight all xl machines
+    name:
+    status:                      # TERMINATED or RUNNING
+
+  ignore-rules:                  # blacklist instances by machine-time, name or status
+    machine-type: 
+      - string: micro            # ignore micro instances
+    name:
+    status:                      # TERMINATED or RUNNING
+
+IAM:
+  print: True                    # Show the IAM (list of users with their roles) in the report
+
+  notify-rules:                  # whitelist users by  name, email, account-type or role
+    name:    
+    email: 
+    account-type: user           # user or serviceAccount
+    role:
+
+  alert-rules:                   # highlight users by  name, email, account-type or role
+    name: 
+    email: 
+      - string: others.com       # Alert users from others.com that have access to the projects
+    account-type:                # user or serviceAccount
+    role:
+
+  ignore-rules:                  # blacklit users by  name, email, account-type or role
+    name:    
+    email: 
+      - string:  my.company.com  # Ignore users from my.company
+    account-type:                # user or serviceAccount
+    role:
+
+
+firewall:
+  print: True                    # Show the firewall rules in the report
+
+  notify-rules:                  # whitelist firewalls by  name, range, protocol or port
+    name: 
+    range:
+    protocol: 
+    port: 
+        
+  alert-rules:                   # highlight firewalls by  name, range, protocol or port
+    name: 
+    range:
+      - string: 0.0.0.0/0        # highlight open ranges (0.0.0.0/0)
+    protocol: 
+    port: 
+
+  ignore-rules:                  # blacklist firewalls by  name, range, protocol or port
+    name: 
+      - string: default          # ignore default firewalls
+    range:
+    protocol: 
+    port: 

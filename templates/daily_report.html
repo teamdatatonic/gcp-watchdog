@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {% set num_tables = 3 %}
+  {% for table in range(num_tables)-%}
+
+      <br>{{table_titles[table]}}</br>
+
+      <table id="hor-minimalist-b">
+      <td>{{tables[table]}}</td>
+
+      </tr>
+      </table>
+
+  {%-endfor %}
+
+
+
+{% endblock %}
+
+
