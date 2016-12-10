@@ -23,5 +23,7 @@ setup(name='gcp-watchdog',
           'inlinestyler',
           'sendgrid'
       ],
+      package_data={'templates': ['layout.html', 'daily_report.html', 'watchdog_example.yaml']},
+      include_package_data=True,
       packages=setuptools.find_packages()
       )

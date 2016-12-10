@@ -13,6 +13,7 @@ import datetime
 import os
 import argparse
 import yaml
+import pkg_resources
 import pandas as pd
 
 from googleapiclient import discovery
@@ -54,7 +55,6 @@ def main():
     args = parser.parse_args()
 
     # Parse watchdog configuration file (watchdog.yaml)
-    path = os.path.dirname(os.path.abspath(__file__))
     with open(args.config_file, 'r') as ymlfile:
         cfg = yaml.load(ymlfile)
 
@@ -147,7 +147,8 @@ def main():
     # Create report
 
     # Construct email content
-    env = Environment(loader=FileSystemLoader(os.getcwd()+'/templates'))
+    templates_folder = pkg_resources.resource_filename('templates','')
+    env = Environment(loader=FileSystemLoader(templates_folder))
     content = {'title': cfg['general']['report-title'] + '  ' + str(datetime.datetime.now())[:-7],
                'num_tables': len(tables),
                'table_titles': table_titles,
