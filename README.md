@@ -28,7 +28,7 @@ pip install .
 ## Setup 
 1. Create a service account on GCP to use with the gcp-watchdog. You can also use your user account but its good practice to use a service account with a limited scope, especially if you run the watchdog on a compute instance.   
 
-2. Set *browse* permissions on GCP for all the projects you want to include in the report. *Browse* permissions in GCP can be set for either
+2. Set *viewer* permissions on GCP for all the projects you want to include in the report. *Viewer* permissions in GCP can be set for either
     1. Each project individually
     2. On the organization level with the organization node. (https://cloud.google.com/resource-manager/docs/quickstart)    
 
