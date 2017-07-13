@@ -63,11 +63,11 @@ def get_firewall_data(compute, project_IDs):
 
         if response.has_key('items'):
             for item in response['items']:
-
                 if item.has_key('allowed'):
                     for allowed in item['allowed']:
                         data.append([str(project), str(item['name']),
-                                     str(item['sourceRanges'][0]), str(allowed['IPProtocol']),
+                                     str(item['sourceRanges'][0]) if item.has_key('sourceRanges') else '', 
+                                     str(allowed['IPProtocol']),
                                      allowed['ports'][0] if allowed.has_key('ports')
                                      else None, str(item['kind'])])
 
