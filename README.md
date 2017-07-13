@@ -100,3 +100,5 @@ For example:
 ```
  
 **You will find an example of the configuration file in the *templates* folder**
+
+
