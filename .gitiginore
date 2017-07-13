@@ -1,2 +1,4 @@
 *.pyc
 report.html
+.idea/
+.DS_Store
