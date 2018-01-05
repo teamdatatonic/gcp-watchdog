@@ -98,15 +98,3 @@ def get_people_access(project_rm, project_IDs):
                         data.append([str(project), str(email.split('@')[0]).replace('.', ' '),
                                      email, email.rsplit('@')[1], account_type, str(role)[6:]])
     return data
-
-
-
-
-
-
-
-
-
-
-
-

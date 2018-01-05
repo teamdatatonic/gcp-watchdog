@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='gcp-watchdog',
-      version='0.2',
+      version='0.3',
       description='Watchdog that monitors Google Cloud Platform services',
       long_description="""Watchdog that monitors Google Cloud Platform services. Creates a HTML report file which lists
                           compute instances, IAM (Identity and Access Management) and firewall rules""",

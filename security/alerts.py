@@ -23,7 +23,7 @@ def check_projects(compute, rm, projects):
     Checks if compute, ressource manager and permissions are correct
     If permissions are not met, the project is excluded
 
-    Add unaccessible projects and the reason to a dataframe
+    Add unaccessible projects and the reason to a dataframe(to be displayed in report)
     """
 
     inaccessible_projects = []
@@ -273,7 +273,3 @@ def alert_firewalls(firewalls, alert_cfg):
 
     firewalls_styler.set_table_attributes("border=1")
     return firewalls, firewalls_styler
-
-
-
-

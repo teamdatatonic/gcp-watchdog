@@ -93,12 +93,10 @@ def main():
     projects = pd.DataFrame(projects_data, columns=projects_columns)
     projects, inaccessible_projects = check_projects(compute, rm, projects)
 
-    print(projects)
     projects = alert_projects(projects, cfg['general'])
     project_IDs = projects['Project_ID'].tolist()
 
     # Render table of unaccessible projects
-    print(inaccessible_projects.head(20))
     colors = ['background-color: darkorange' for i in range(inaccessible_projects.shape[1])]
     inaccessible_projects_styler = inaccessible_projects.style
     if inaccessible_projects.shape[0] > 0:
