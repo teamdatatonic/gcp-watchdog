@@ -12,10 +12,14 @@ import sendgrid
 from sendgrid.helpers.mail import Email, Content, Mail
 from inlinestyler.utils import inline_css
 
-def send_email(html, from_email, to_email, subject):
+def send_email(html, from_email, to_email, subject, sendgrid_key=None):
     """Send html via email"""
 
-    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+    if sendgrid_key:
+        sg = sendgrid.SendGridAPIClient(apikey=sendgrid_key)
+    else:
+        sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+        
     from_email = Email(from_email)
     subject = subject
     to_email = Email(to_email)

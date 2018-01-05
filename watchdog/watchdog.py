@@ -56,6 +56,11 @@ def main():
                         help="""Absolute path of service account key (optional). 
                         On default GOOGLE_APPLICATION_CREDENTIALS is used""")
 
+    parser.add_argument('--sendgrid_key', '-sgk',
+                        dest='key_path',
+                        help="""Absolute path of Sendgrid API key (optional).
+                        On default SENDGRID_API_KEY is used""")
+
     args = parser.parse_args()
 
     # Parse watchdog configuration file (watchdog.yaml)
@@ -187,7 +192,8 @@ def main():
     # Send email (needs email client to be configured)
     if args.email:
         for to_email in cfg['general']['receiver-email']:
-            send_email(html, cfg['general']['watchdog-email'], to_email['email'], subject)
+            send_email(html, cfg['general']['watchdog-email'], to_email['email'], 
+                        subject, args.sendgrid_key)
 
 
 if __name__ == "__main__":
