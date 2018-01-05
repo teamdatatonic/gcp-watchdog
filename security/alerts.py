@@ -11,6 +11,7 @@ alert-rules : color highlight
 
 """
 
+import pandas as pd
 from googleapiclient.errors import HttpError
 
 # Colors for highlighting
@@ -21,7 +22,12 @@ def check_projects(compute, rm, projects):
     """
     Checks if compute, ressource manager and permissions are correct
     If permissions are not met, the project is excluded
+
+    Add unaccessible projects and the reason to a dataframe
     """
+
+    inaccessible_projects = []
+    inaccessible_reasons = []
 
     for project in projects['Project_ID'].tolist():
         try:
@@ -30,6 +36,9 @@ def check_projects(compute, rm, projects):
         except HttpError:
             print("\nGCP Error: Compute Engine is not configured for %s \nor "
                   "the service account does not have perimssions to access it" % project)
+
+            inaccessible_projects.append(str(project))
+            inaccessible_reasons.append("GCE or SA")
 
             projects = projects[projects.Project_ID != project]
             continue
@@ -40,11 +49,17 @@ def check_projects(compute, rm, projects):
         except HttpError:
             print("GCP Error: Ressource Manager is not configured for %s \nor "
                   "the service account does not have perimssions to access it" % project)
+            
+            inaccessible_projects.append(str(project))
+            inaccessible_reasons.append("RM")
 
             projects = projects[projects.Project_ID != project]
             continue
 
-    return projects
+    inaccessible_projects_df = pd.DataFrame({'Project_ID': inaccessible_projects,
+        'Reason': inaccessible_reasons})
+
+    return projects, inaccessible_projects_df
 
 def alert_projects(projects, general_cfg):
     """

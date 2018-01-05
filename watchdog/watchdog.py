@@ -91,9 +91,23 @@ def main():
     projects_columns = ['Name', 'Project_ID']
     projects_data = get_projects(credentials)
     projects = pd.DataFrame(projects_data, columns=projects_columns)
-    projects = check_projects(compute, rm, projects)
+    projects, inaccessible_projects = check_projects(compute, rm, projects)
+
+    print(projects)
     projects = alert_projects(projects, cfg['general'])
     project_IDs = projects['Project_ID'].tolist()
+
+    # Render table of unaccessible projects
+    print(inaccessible_projects.head(20))
+    colors = ['background-color: darkorange' for i in range(inaccessible_projects.shape[1])]
+    inaccessible_projects_styler = inaccessible_projects.style
+    if inaccessible_projects.shape[0] > 0:
+        inaccessible_projects_styler = inaccessible_projects_styler.apply(
+            lambda x: colors, axis=1)
+
+    inaccessible_projects_styler.set_table_attributes("border=1")
+    tables.append(inaccessible_projects_styler.render())
+    table_titles.append('Incaccessible Projects')
 
     # Get zones
     zone_columns = ['Name']
