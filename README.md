@@ -45,7 +45,7 @@ pip install .
 
 7. Run with:
 ```
-gcp-watchgog --config watchdog.yaml
+gcp-watchdog --config watchdog.yaml
 ```
    
 Create your Sendgrid account here: https://sendgrid.com/, or configure any other email client yourself.
