@@ -51,6 +51,10 @@ def main():
                         dest='no_output',
                         action='store_true',
                         help="Don't output report file")
+    parser.add_argument('--key', '-k',
+                        dest='key_path',
+                        help="""Absolute path of service account key (optional). 
+                        On default GOOGLE_APPLICATION_CREDENTIALS is used""")
 
     args = parser.parse_args()
 
@@ -76,7 +80,10 @@ def main():
         print '- firewall'
 
     # Get authentication and GCP APIs
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+    if args.key_path:
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(args.key_path)
+    else: 
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(
         os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
 
     compute = discovery.build('compute', 'v1', credentials=credentials)
