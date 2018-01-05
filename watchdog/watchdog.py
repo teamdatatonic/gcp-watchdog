@@ -57,7 +57,7 @@ def main():
                         On default GOOGLE_APPLICATION_CREDENTIALS is used""")
 
     parser.add_argument('--sendgrid_key', '-sgk',
-                        dest='key_path',
+                        dest='sendgrid_key',
                         help="""Absolute path of Sendgrid API key (optional).
                         On default SENDGRID_API_KEY is used""")
 
